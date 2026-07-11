@@ -221,10 +221,16 @@ code { font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; }
 .card { padding: 28px 24px; transition: transform .18s ease, border-color .2s ease; }
 .card:hover { transform: translateY(-4px); border-color: var(--panel-brd-strong); }
 .card__icon {
-  font-size: 1.8rem; width: 54px; height: 54px; display: grid; place-items: center;
-  border-radius: 14px; margin-bottom: 14px;
+  width: 54px; height: 54px; display: grid; place-items: center;
+  border-radius: 14px; margin-bottom: 14px; color: var(--neon);
   background: rgba(34,255,136,0.08); border: 1px solid var(--panel-brd);
 }
+.card__icon svg { width: 26px; height: 26px; filter: drop-shadow(0 0 6px rgba(34,255,136,0.5)); }
+.up .dot, .down .dot {
+  display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 6px;
+}
+.up .dot { background: var(--up); box-shadow: 0 0 8px rgba(34,255,136,0.8); }
+.down .dot { background: var(--down); box-shadow: 0 0 8px rgba(255,77,94,0.8); }
 .card h3 { margin: 0 0 8px; font-size: 1.16rem; color: #fff; }
 .card p { margin: 0; color: var(--ink-soft); }
 .up { color: var(--up); font-weight: 700; }
@@ -272,12 +278,13 @@ code { font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace; }
   box-shadow: 0 0 40px rgba(34,255,136,0.14);
 }
 .token__badge {
-  display: inline-block; margin: 0 0 12px;
+  display: inline-flex; align-items: center; gap: 7px; margin: 0 0 12px;
   padding: 6px 14px; border-radius: 999px;
   font-size: .8rem; font-weight: 800; letter-spacing: .4px;
   color: var(--neon); background: rgba(34,255,136,0.1);
   border: 1px solid var(--panel-brd-strong);
 }
+.token__badge svg { width: 15px; height: 15px; filter: drop-shadow(0 0 4px rgba(34,255,136,0.6)); }
 .token__msg {
   margin: 0 auto 22px; max-width: 60ch;
   font-size: 1.12rem; color: var(--ink);
