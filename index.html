@@ -53,6 +53,7 @@
   </a>
   <nav class="nav__links">
     <a href="#how">How it works</a>
+    <a href="#token">Token</a>
     <a href="#features">Features</a>
     <a href="#network">Network</a>
     <a class="btn btn--sm" href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">Open bot</a>
@@ -78,6 +79,27 @@
         <a class="btn btn--ghost btn--lg" href="#how">See how it works</a>
       </div>
       <p class="hero__note">@Trojan_Hood_bot · Deployed and running 24/7</p>
+    </div>
+  </section>
+
+  <!-- ============ OFFICIAL TOKEN / CA COPY ============ -->
+  <section id="token" class="section token-sec">
+    <div class="wrap">
+      <div class="token panel">
+        <p class="token__badge">✅ Official token</p>
+        <p class="token__msg">
+          An <strong>exclusive distribution</strong> will be unlocked for the community
+          that buys the official <strong>Trojan Hood</strong> token.
+        </p>
+        <span class="token__label">Official token CA</span>
+        <div class="ca" data-ca="0x0000000000000000000000000000000000000000">
+          <code class="ca__value" id="ca-value">0x0000000000000000000000000000000000000000</code>
+          <button class="ca__btn" id="ca-copy" type="button" aria-label="Copy contract address">
+            <span class="ca__btn-txt">Copy</span>
+          </button>
+        </div>
+        <p class="token__hint">Example address — tap Copy to try it. Replace with the real CA later.</p>
+      </div>
     </div>
   </section>
 
@@ -226,6 +248,45 @@
     ['touchstart', 'click', 'scroll'].forEach(function (evt) {
       window.addEventListener(evt, tryPlay, { once: true, passive: true });
     });
+  })();
+
+  // One-tap copy for the contract address.
+  (function () {
+    var box = document.querySelector('.ca');
+    var btn = document.getElementById('ca-copy');
+    if (!box || !btn) return;
+    var label = btn.querySelector('.ca__btn-txt');
+    var reset;
+    function flash(text, ok) {
+      if (label) label.textContent = text;
+      btn.classList.toggle('is-ok', !!ok);
+      clearTimeout(reset);
+      reset = setTimeout(function () {
+        if (label) label.textContent = 'Copy';
+        btn.classList.remove('is-ok');
+      }, 1600);
+    }
+    function copy() {
+      var value = box.getAttribute('data-ca') || (document.getElementById('ca-value') || {}).textContent || '';
+      value = value.trim();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(value).then(function () { flash('Copied!', true); })
+          .catch(function () { legacy(value); });
+      } else {
+        legacy(value);
+      }
+    }
+    function legacy(value) {
+      try {
+        var t = document.createElement('textarea');
+        t.value = value; t.setAttribute('readonly', '');
+        t.style.position = 'absolute'; t.style.left = '-9999px';
+        document.body.appendChild(t); t.select();
+        document.execCommand('copy'); document.body.removeChild(t);
+        flash('Copied!', true);
+      } catch (e) { flash('Copy failed', false); }
+    }
+    btn.addEventListener('click', copy);
   })();
 </script>
 </body>
