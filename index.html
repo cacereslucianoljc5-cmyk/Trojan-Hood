@@ -1,16 +1,16 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 <meta name="theme-color" content="#000000" />
-<title>Trojan Hood — Tradeá cualquier token de Robinhood Chain desde Telegram</title>
-<meta name="description" content="Bot de Telegram auto-custodial para Robinhood Chain. Pegá el CA, comprá con WETH y seguí tu PnL en tiempo real. Ruteo inteligente Uniswap V2 + V3." />
+<title>Trojan Hood — Trade any Robinhood Chain token from Telegram</title>
+<meta name="description" content="Self-custodial Telegram bot for Robinhood Chain. Paste the CA, buy with WETH and track your PnL in real time. Smart Uniswap V2 + V3 routing." />
 
 <!-- Open Graph / social preview -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Trojan Hood — Trading de Robinhood Chain en Telegram" />
-<meta property="og:description" content="Comprá y vendé cualquier token de Robinhood Chain desde el chat de Telegram." />
+<meta property="og:title" content="Trojan Hood — Robinhood Chain trading on Telegram" />
+<meta property="og:description" content="Buy and sell any Robinhood Chain token straight from your Telegram chat." />
 <meta property="og:image" content="assets/logo.jpg" />
 
 <link rel="icon" type="image/jpeg" href="assets/logo.jpg" />
@@ -19,15 +19,15 @@
 </head>
 <body>
 
-<!-- ============ FONDO EN BUCLE ============ -->
-<!-- Capa 0: fondo neón animado por CSS (se ve al instante y si el video no carga). -->
+<!-- ============ LOOPING BACKGROUND ============ -->
+<!-- Layer 0: animated CSS neon background (shows instantly and if the video fails). -->
 <div class="bg-neon" aria-hidden="true">
   <div class="bg-grid"></div>
   <div class="bg-glow bg-glow--1"></div>
   <div class="bg-glow bg-glow--2"></div>
 </div>
 
-<!-- Capa 1: video de fondo. autoplay + muted + loop + playsinline => bucle sin botón de play. -->
+<!-- Layer 1: background video. autoplay + muted + loop + playsinline => loop with no play button. -->
 <video
   class="bg-video"
   autoplay
@@ -42,20 +42,20 @@
   <source src="assets/background.mp4" type="video/mp4" />
 </video>
 
-<!-- Capa 2: velo oscuro para que el texto SIEMPRE sea legible sobre el video -->
+<!-- Layer 2: dark scrim so text is ALWAYS readable over the video -->
 <div class="bg-scrim" aria-hidden="true"></div>
 
 <!-- ============ NAV ============ -->
 <header class="nav">
   <a class="nav__brand" href="#top">
-    <img src="assets/logo.jpg" alt="Logo Trojan Hood" class="nav__logo" width="40" height="40" />
+    <img src="assets/logo.jpg" alt="Trojan Hood logo" class="nav__logo" width="40" height="40" />
     <span class="nav__name">Trojan&nbsp;Hood</span>
   </a>
   <nav class="nav__links">
-    <a href="#como">Cómo funciona</a>
-    <a href="#features">Funciones</a>
-    <a href="#red">La red</a>
-    <a class="btn btn--sm" href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">Abrir bot</a>
+    <a href="#how">How it works</a>
+    <a href="#features">Features</a>
+    <a href="#network">Network</a>
+    <a class="btn btn--sm" href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">Open bot</a>
   </nav>
 </header>
 
@@ -65,47 +65,47 @@
   <section class="hero">
     <div class="hero__inner panel">
       <img src="assets/logo.jpg" alt="Trojan Hood" class="hero__logo" width="150" height="150" />
-      <p class="eyebrow">Bot de Telegram · Robinhood Chain</p>
-      <h1 class="hero__title">Tradeá cualquier token de<br /><span class="grad">Robinhood Chain</span> desde Telegram</h1>
+      <p class="eyebrow">Telegram bot · Robinhood Chain</p>
+      <h1 class="hero__title">Trade any token on<br /><span class="grad">Robinhood Chain</span> from Telegram</h1>
       <p class="hero__sub">
-        <strong>Auto-custodial</strong>. Creás tu billetera, pegás el
-        <em>contract address</em> y comprás con WETH en un toque. Seguí tu PnL en tiempo real.
+        <strong>Self-custodial</strong>. Create your wallet, paste the
+        <em>contract address</em> and buy with WETH in one tap. Track your PnL in real time.
       </p>
       <div class="hero__cta">
         <a class="btn btn--lg" href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">
-          Abrir en Telegram
+          Open in Telegram
         </a>
-        <a class="btn btn--ghost btn--lg" href="#como">Ver cómo funciona</a>
+        <a class="btn btn--ghost btn--lg" href="#how">See how it works</a>
       </div>
-      <p class="hero__note">@Trojan_Hood_bot · Desplegado y funcionando 24/7</p>
+      <p class="hero__note">@Trojan_Hood_bot · Deployed and running 24/7</p>
     </div>
   </section>
 
-  <!-- ============ CÓMO FUNCIONA ============ -->
-  <section id="como" class="section">
+  <!-- ============ HOW IT WORKS ============ -->
+  <section id="how" class="section">
     <div class="wrap">
-      <h2 class="section__title">Cómo funciona</h2>
-      <p class="section__lead">De cero a tu primera compra en cuatro pasos.</p>
+      <h2 class="section__title">How it works</h2>
+      <p class="section__lead">From zero to your first buy in four steps.</p>
       <ol class="steps">
         <li class="step panel">
           <span class="step__num">1</span>
-          <h3>Abrí el bot</h3>
-          <p>Mandá <code>/start</code> a @Trojan_Hood_bot y creá una billetera nueva o importá la tuya con la clave privada.</p>
+          <h3>Open the bot</h3>
+          <p>Send <code>/start</code> to @Trojan_Hood_bot and create a new wallet or import yours with its private key.</p>
         </li>
         <li class="step panel">
           <span class="step__num">2</span>
-          <h3>Fondeá tu wallet</h3>
-          <p>Enviá <strong>WETH</strong> para comprar y un poco de <strong>ETH</strong> para el gas a tu dirección.</p>
+          <h3>Fund your wallet</h3>
+          <p>Send <strong>WETH</strong> to buy and a bit of <strong>ETH</strong> for gas to your address.</p>
         </li>
         <li class="step panel">
           <span class="step__num">3</span>
-          <h3>Pegá el CA</h3>
-          <p>Pegá el contract address del token y tocá un botón de compra: <code>0.01</code> / <code>0.05</code> / <code>0.1</code> / <code>0.5</code> WETH o monto custom.</p>
+          <h3>Paste the CA</h3>
+          <p>Paste the token's contract address and tap a buy button: <code>0.01</code> / <code>0.05</code> / <code>0.1</code> / <code>0.5</code> WETH or a custom amount.</p>
         </li>
         <li class="step panel">
           <span class="step__num">4</span>
-          <h3>Seguí tu PnL</h3>
-          <p>Ves tu posición con el % de ganancia/pérdida en el menú. Vendé 25 / 50 / 100% o retirá cuando quieras.</p>
+          <h3>Track your PnL</h3>
+          <p>See your position with its profit/loss % in the menu. Sell 25 / 50 / 100% or withdraw whenever you want.</p>
         </li>
       </ol>
     </div>
@@ -114,80 +114,80 @@
   <!-- ============ FEATURES ============ -->
   <section id="features" class="section section--alt">
     <div class="wrap">
-      <h2 class="section__title">Todo lo que necesitás para operar</h2>
+      <h2 class="section__title">Everything you need to trade</h2>
       <div class="grid">
         <article class="card panel">
           <div class="card__icon">🔐</div>
-          <h3>Billetera auto-custodial</h3>
-          <p>Vos controlás las claves. Se guardan cifradas con AES-256-GCM; la frase semilla se muestra una sola vez y no se almacena.</p>
+          <h3>Self-custodial wallet</h3>
+          <p>You control the keys. They're stored encrypted with AES-256-GCM; the seed phrase is shown once and never saved.</p>
         </article>
         <article class="card panel">
           <div class="card__icon">🔀</div>
-          <h3>Ruteo inteligente V2 + V3</h3>
-          <p>Cotiza en paralelo por Uniswap V2 y V3 (fee tiers 0.01–1%) y ejecuta por la mejor ruta. Compra tokens que los bots solo-V2 no pueden.</p>
+          <h3>Smart V2 + V3 routing</h3>
+          <p>Quotes Uniswap V2 and V3 in parallel (fee tiers 0.01–1%) and executes via the best route. Buys tokens that V2-only bots can't.</p>
         </article>
         <article class="card panel">
           <div class="card__icon">📋</div>
-          <h3>Pegá el CA y comprá</h3>
-          <p>Panel instantáneo con nombre, símbolo, precio de referencia, ruta y balances. Botones de monto preestablecido o custom.</p>
+          <h3>Paste the CA and buy</h3>
+          <p>Instant panel with name, symbol, reference price, route and balances. Preset or custom amount buttons.</p>
         </article>
         <article class="card panel">
           <div class="card__icon">📈</div>
-          <h3>Posiciones con PnL</h3>
-          <p>Lista de tus tokens con el % de ganancia/pérdida. <span class="up">🟢 Verde</span> gana, <span class="down">🔴 Rojo</span> pierde. Simple y directo.</p>
+          <h3>Positions with PnL</h3>
+          <p>A list of your tokens with their profit/loss %. <span class="up">🟢 Green</span> wins, <span class="down">🔴 Red</span> loses. Simple and direct.</p>
         </article>
         <article class="card panel">
           <div class="card__icon">🧭</div>
-          <h3>Pool → Token automático</h3>
-          <p>Si pegás la dirección de un pool (lo que copiás de DEX Screener), el bot la resuelve sola al token subyacente.</p>
+          <h3>Pool → Token automatically</h3>
+          <p>If you paste a pool address (what you copy from DEX Screener), the bot resolves it to the underlying token automatically.</p>
         </article>
         <article class="card panel">
           <div class="card__icon">💸</div>
-          <h3>Retiros y ajustes</h3>
-          <p>Retirá ETH o WETH a cualquier dirección externa. Ajustá el slippage y los montos de los botones a tu gusto.</p>
+          <h3>Withdrawals and settings</h3>
+          <p>Withdraw ETH or WETH to any external address. Adjust slippage and the button amounts to your liking.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ============ LA RED / CONFIANZA ============ -->
-  <section id="red" class="section">
+  <!-- ============ NETWORK / TRUST ============ -->
+  <section id="network" class="section">
     <div class="wrap">
-      <h2 class="section__title">Construido sobre Robinhood Chain</h2>
+      <h2 class="section__title">Built on Robinhood Chain</h2>
       <p class="section__lead">
-        La Layer 2 pública de Robinhood (estilo Arbitrum, sobre Ethereum). El gas se paga en ETH
-        y todas las pools cotizan contra WETH — por eso la moneda base del bot es <strong>WETH</strong>,
-        la moneda nativa de la red en su forma ERC-20.
+        Robinhood's public Layer 2 (Arbitrum-style, on Ethereum). Gas is paid in ETH
+        and every pool quotes against WETH — that's why the bot's base currency is <strong>WETH</strong>,
+        the network's native currency in its ERC-20 form.
       </p>
       <div class="stats">
         <div class="stat panel"><span class="stat__num">4663</span><span class="stat__lbl">Chain ID (“HOOD”)</span></div>
-        <div class="stat panel"><span class="stat__num">V2 + V3</span><span class="stat__lbl">Rutas Uniswap</span></div>
-        <div class="stat panel"><span class="stat__num">AES-256</span><span class="stat__lbl">Claves cifradas (GCM)</span></div>
+        <div class="stat panel"><span class="stat__num">V2 + V3</span><span class="stat__lbl">Uniswap routes</span></div>
+        <div class="stat panel"><span class="stat__num">AES-256</span><span class="stat__lbl">Encrypted keys (GCM)</span></div>
         <div class="stat panel"><span class="stat__num">24/7</span><span class="stat__lbl">Online</span></div>
       </div>
       <div class="tech panel">
-        <h3>Stack técnico</h3>
-        <p>Node.js 20+ · grammY · ethers v6 · long polling · almacenamiento JSON cifrado por usuario.</p>
+        <h3>Tech stack</h3>
+        <p>Node.js 20+ · grammY · ethers v6 · long polling · per-user encrypted JSON storage.</p>
         <div class="tech__addrs">
           <div><span>WETH</span><code>0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73</code></div>
           <div><span>Uniswap V2 Router02</span><code>0x89e5DB8B5aA49aA85AC63f691524311AEB649eba</code></div>
           <div><span>Uniswap V3 SwapRouter02</span><code>0xCaf681a66D020601342297493863E78C959E5cb2</code></div>
         </div>
         <div class="tech__links">
-          <a href="https://robinhoodchain.blockscout.com" target="_blank" rel="noopener">Explorador ↗</a>
-          <a href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">Bot en Telegram ↗</a>
+          <a href="https://robinhoodchain.blockscout.com" target="_blank" rel="noopener">Explorer ↗</a>
+          <a href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">Bot on Telegram ↗</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ CTA FINAL ============ -->
+  <!-- ============ FINAL CTA ============ -->
   <section class="cta">
     <div class="cta__inner panel">
       <img src="assets/logo.jpg" alt="" class="cta__logo" width="88" height="88" aria-hidden="true" />
-      <h2>Empezá a operar en un toque</h2>
-      <p>Sin exchange, sin custodia de terceros. Tu billetera, tus claves, tu control.</p>
-      <a class="btn btn--lg" href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">Abrir Trojan Hood</a>
+      <h2>Start trading in one tap</h2>
+      <p>No exchange, no third-party custody. Your wallet, your keys, your control.</p>
+      <a class="btn btn--lg" href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">Open Trojan Hood</a>
     </div>
   </section>
 
@@ -201,23 +201,23 @@
       <span>Trojan&nbsp;Hood</span>
     </div>
     <p class="footer__disclaimer">
-      El trading de cripto conlleva riesgo y esto no es asesoría financiera. Trojan Hood es
-      auto-custodial: sos responsable de tus propias claves. Usá montos chicos primero.
+      Crypto trading carries risk and this is not financial advice. Trojan Hood is
+      self-custodial: you are responsible for your own keys. Use small amounts first.
     </p>
-    <p class="footer__copy">© 2026 Trojan Hood · No afiliado a Robinhood Markets, Inc.</p>
+    <p class="footer__copy">© 2026 Trojan Hood · Not affiliated with Robinhood Markets, Inc.</p>
   </div>
 </footer>
 
 <script>
-  // Refuerzo: algunos navegadores móviles bloquean autoplay hasta que el elemento
-  // esté listo. Reintentamos reproducir en silencio, sin mostrar controles.
+  // Fallback: some mobile browsers block autoplay until the element is ready.
+  // We retry playback silently, without showing any controls.
   (function () {
     var v = document.querySelector('.bg-video');
     if (!v) return;
-    v.muted = true; // requerido para autoplay
+    v.muted = true; // required for autoplay
     var tryPlay = function () {
       var p = v.play();
-      if (p && p.catch) p.catch(function () {/* se reintenta al primer toque */});
+      if (p && p.catch) p.catch(function () {/* retried on first interaction */});
     };
     tryPlay();
     document.addEventListener('visibilitychange', function () {
