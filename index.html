@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#000000" />
+<title>Trojan Hood — Tradeá cualquier token de Robinhood Chain desde Telegram</title>
+<meta name="description" content="Bot de Telegram auto-custodial estilo Trojan para Robinhood Chain. Pegá el CA, comprá con WETH y seguí tu PnL en tiempo real. Ruteo inteligente Uniswap V2 + V3." />
+
+<!-- Open Graph / social preview -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Trojan Hood — Trading de Robinhood Chain en Telegram" />
+<meta property="og:description" content="Comprá y vendé cualquier token de Robinhood Chain desde el chat de Telegram, al estilo Trojan." />
+<meta property="og:image" content="assets/logo.jpg" />
+
+<link rel="icon" type="image/jpeg" href="assets/logo.jpg" />
+<link rel="preload" as="image" href="assets/logo.jpg" />
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ============ FONDO EN BUCLE ============ -->
+<!-- Capa 0: fondo neón animado por CSS (se ve al instante y si el video no carga). -->
+<div class="bg-neon" aria-hidden="true">
+  <div class="bg-grid"></div>
+  <div class="bg-glow bg-glow--1"></div>
+  <div class="bg-glow bg-glow--2"></div>
+</div>
+
+<!-- Capa 1: video de fondo. autoplay + muted + loop + playsinline => bucle sin botón de play. -->
+<video
+  class="bg-video"
+  autoplay
+  muted
+  loop
+  playsinline
+  preload="auto"
+  disablepictureinpicture
+  poster="assets/logo.jpg"
+  aria-hidden="true"
+  tabindex="-1">
+  <source src="assets/background.mp4" type="video/mp4" />
+</video>
+
+<!-- Capa 2: velo oscuro para que el texto SIEMPRE sea legible sobre el video -->
+<div class="bg-scrim" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <a class="nav__brand" href="#top">
+    <img src="assets/logo.jpg" alt="Logo Trojan Hood" class="nav__logo" width="40" height="40" />
+    <span class="nav__name">Trojan&nbsp;Hood</span>
+  </a>
+  <nav class="nav__links">
+    <a href="#como">Cómo funciona</a>
+    <a href="#features">Funciones</a>
+    <a href="#red">La red</a>
+    <a class="btn btn--sm" href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">Abrir bot</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="hero__inner panel">
+      <img src="assets/logo.jpg" alt="Trojan Hood" class="hero__logo" width="150" height="150" />
+      <p class="eyebrow">Bot de Telegram · Robinhood Chain</p>
+      <h1 class="hero__title">Tradeá cualquier token de<br /><span class="grad">Robinhood Chain</span> desde Telegram</h1>
+      <p class="hero__sub">
+        Auto-custodial, al estilo <strong>Trojan</strong>. Creás tu billetera, pegás el
+        <em>contract address</em> y comprás con WETH en un toque. Seguí tu PnL en tiempo real.
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn--lg" href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">
+          Abrir en Telegram
+        </a>
+        <a class="btn btn--ghost btn--lg" href="#como">Ver cómo funciona</a>
+      </div>
+      <p class="hero__note">@Trojan_Hood_bot · Desplegado y funcionando 24/7</p>
+    </div>
+  </section>
+
+  <!-- ============ CÓMO FUNCIONA ============ -->
+  <section id="como" class="section">
+    <div class="wrap">
+      <h2 class="section__title">Cómo funciona</h2>
+      <p class="section__lead">De cero a tu primera compra en cuatro pasos.</p>
+      <ol class="steps">
+        <li class="step panel">
+          <span class="step__num">1</span>
+          <h3>Abrí el bot</h3>
+          <p>Mandá <code>/start</code> a @Trojan_Hood_bot y creá una billetera nueva o importá la tuya con la clave privada.</p>
+        </li>
+        <li class="step panel">
+          <span class="step__num">2</span>
+          <h3>Fondeá tu wallet</h3>
+          <p>Enviá <strong>WETH</strong> para comprar y un poco de <strong>ETH</strong> para el gas a tu dirección.</p>
+        </li>
+        <li class="step panel">
+          <span class="step__num">3</span>
+          <h3>Pegá el CA</h3>
+          <p>Pegá el contract address del token y tocá un botón de compra: <code>0.01</code> / <code>0.05</code> / <code>0.1</code> / <code>0.5</code> WETH o monto custom.</p>
+        </li>
+        <li class="step panel">
+          <span class="step__num">4</span>
+          <h3>Seguí tu PnL</h3>
+          <p>Ves tu posición con el % de ganancia/pérdida en el menú. Vendé 25 / 50 / 100% o retirá cuando quieras.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ FEATURES ============ -->
+  <section id="features" class="section section--alt">
+    <div class="wrap">
+      <h2 class="section__title">Todo lo que necesitás para operar</h2>
+      <div class="grid">
+        <article class="card panel">
+          <div class="card__icon">🔐</div>
+          <h3>Billetera auto-custodial</h3>
+          <p>Vos controlás las claves. Se guardan cifradas con AES-256-GCM; la frase semilla se muestra una sola vez y no se almacena.</p>
+        </article>
+        <article class="card panel">
+          <div class="card__icon">🔀</div>
+          <h3>Ruteo inteligente V2 + V3</h3>
+          <p>Cotiza en paralelo por Uniswap V2 y V3 (fee tiers 0.01–1%) y ejecuta por la mejor ruta. Compra tokens que los bots solo-V2 no pueden.</p>
+        </article>
+        <article class="card panel">
+          <div class="card__icon">📋</div>
+          <h3>Pegá el CA y comprá</h3>
+          <p>Panel instantáneo con nombre, símbolo, precio de referencia, ruta y balances. Botones de monto preestablecido o custom.</p>
+        </article>
+        <article class="card panel">
+          <div class="card__icon">📈</div>
+          <h3>Posiciones con PnL</h3>
+          <p>Lista de tus tokens con el % de ganancia/pérdida. <span class="up">🟢 Verde</span> gana, <span class="down">🔴 Rojo</span> pierde. Sin ruido, estilo Trojan.</p>
+        </article>
+        <article class="card panel">
+          <div class="card__icon">🧭</div>
+          <h3>Pool → Token automático</h3>
+          <p>Si pegás la dirección de un pool (lo que copiás de DEX Screener), el bot la resuelve sola al token subyacente.</p>
+        </article>
+        <article class="card panel">
+          <div class="card__icon">💸</div>
+          <h3>Retiros y ajustes</h3>
+          <p>Retirá ETH o WETH a cualquier dirección externa. Ajustá el slippage y los montos de los botones a tu gusto.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LA RED / CONFIANZA ============ -->
+  <section id="red" class="section">
+    <div class="wrap">
+      <h2 class="section__title">Construido sobre Robinhood Chain</h2>
+      <p class="section__lead">
+        La Layer 2 pública de Robinhood (estilo Arbitrum, sobre Ethereum). El gas se paga en ETH
+        y todas las pools cotizan contra WETH — por eso la moneda base del bot es <strong>WETH</strong>,
+        el equivalente exacto a "gastar SOL" en un Trojan de Solana.
+      </p>
+      <div class="stats">
+        <div class="stat panel"><span class="stat__num">4663</span><span class="stat__lbl">Chain ID (“HOOD”)</span></div>
+        <div class="stat panel"><span class="stat__num">V2 + V3</span><span class="stat__lbl">Rutas Uniswap</span></div>
+        <div class="stat panel"><span class="stat__num">AES-256</span><span class="stat__lbl">Claves cifradas (GCM)</span></div>
+        <div class="stat panel"><span class="stat__num">24/7</span><span class="stat__lbl">Online</span></div>
+      </div>
+      <div class="tech panel">
+        <h3>Stack técnico</h3>
+        <p>Node.js 20+ · grammY · ethers v6 · long polling · almacenamiento JSON cifrado por usuario · desplegado en Fly.io.</p>
+        <div class="tech__addrs">
+          <div><span>WETH</span><code>0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73</code></div>
+          <div><span>Uniswap V2 Router02</span><code>0x89e5DB8B5aA49aA85AC63f691524311AEB649eba</code></div>
+          <div><span>Uniswap V3 SwapRouter02</span><code>0xCaf681a66D020601342297493863E78C959E5cb2</code></div>
+        </div>
+        <div class="tech__links">
+          <a href="https://robinhoodchain.blockscout.com" target="_blank" rel="noopener">Explorador ↗</a>
+          <a href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">Bot en Telegram ↗</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA FINAL ============ -->
+  <section class="cta">
+    <div class="cta__inner panel">
+      <img src="assets/logo.jpg" alt="" class="cta__logo" width="88" height="88" aria-hidden="true" />
+      <h2>Empezá a operar en un toque</h2>
+      <p>Sin exchange, sin custodia de terceros. Tu billetera, tus claves, tu control.</p>
+      <a class="btn btn--lg" href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">Abrir Trojan Hood</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__inner">
+    <div class="footer__brand">
+      <img src="assets/logo.jpg" alt="" width="32" height="32" aria-hidden="true" />
+      <span>Trojan&nbsp;Hood</span>
+    </div>
+    <p class="footer__disclaimer">
+      El trading de cripto conlleva riesgo y esto no es asesoría financiera. Trojan Hood es
+      auto-custodial: sos responsable de tus propias claves. Usá montos chicos primero.
+    </p>
+    <p class="footer__copy">© 2026 Trojan Hood · No afiliado a Robinhood Markets, Inc.</p>
+  </div>
+</footer>
+
+<script>
+  // Refuerzo: algunos navegadores móviles bloquean autoplay hasta que el elemento
+  // esté listo. Reintentamos reproducir en silencio, sin mostrar controles.
+  (function () {
+    var v = document.querySelector('.bg-video');
+    if (!v) return;
+    v.muted = true; // requerido para autoplay
+    var tryPlay = function () {
+      var p = v.play();
+      if (p && p.catch) p.catch(function () {/* se reintenta al primer toque */});
+    };
+    tryPlay();
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) tryPlay();
+    });
+    ['touchstart', 'click', 'scroll'].forEach(function (evt) {
+      window.addEventListener(evt, tryPlay, { once: true, passive: true });
+    });
+  })();
+</script>
+</body>
+</html>
