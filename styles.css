@@ -47,25 +47,31 @@ strong { color: #eef0f6; font-weight: 600; }
 em { font-style: normal; color: #eef0f6; }
 
 /* ============ AMBIENT BACKGROUND ============ */
+/* Background replicated from the reference: near-black base with a large
+   blurred violet gradient block behind the hero + a secondary violet blob. */
 .bg { position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; background: var(--bg); }
-.bg__glow { position: absolute; border-radius: 50%; filter: blur(120px); opacity: .5; }
+.bg__glow { position: absolute; }
 .bg__glow--1 {
-  width: 60vmax; height: 60vmax; top: -22vmax; left: -10vmax;
-  background: radial-gradient(circle, rgba(139,111,248,0.28), transparent 62%);
-  animation: drift1 26s var(--ease) infinite alternate;
+  left: 50%; margin-left: -64vw; top: -34%;
+  width: 128vw; height: 900px; border-radius: 60px;
+  background: linear-gradient(259deg, #886ff8, #8340d4 51.44%, #180047);
+  filter: blur(150px); opacity: .42;
+  animation: drift1 34s var(--ease) infinite alternate;
 }
 .bg__glow--2 {
-  width: 52vmax; height: 52vmax; bottom: -26vmax; right: -12vmax;
-  background: radial-gradient(circle, rgba(30,41,59,0.9), transparent 60%);
-  animation: drift2 30s var(--ease) infinite alternate;
+  right: -14%; top: 22%;
+  width: 62vw; height: 44vw; border-radius: 50%;
+  background: linear-gradient(259deg, #8d3bff, #500da3 91%);
+  filter: blur(165px); opacity: .22;
+  animation: drift2 40s var(--ease) infinite alternate;
 }
 .bg__grain {
-  position: absolute; inset: 0; opacity: .04; mix-blend-mode: overlay;
+  position: absolute; inset: 0; opacity: .035; mix-blend-mode: overlay;
   background-image: radial-gradient(rgba(255,255,255,0.6) 0.5px, transparent 0.5px);
   background-size: 3px 3px;
 }
-@keyframes drift1 { to { transform: translate(6vmax, 4vmax) scale(1.1); } }
-@keyframes drift2 { to { transform: translate(-5vmax, -3vmax) scale(1.12); } }
+@keyframes drift1 { to { transform: translateY(3%) scale(1.03); } }
+@keyframes drift2 { to { transform: translate(-4vmax, -3vmax) scale(1.08); } }
 
 /* ============ GLASS (gradient-border card) ============ */
 .glass {
