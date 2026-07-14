@@ -1,193 +1,302 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<meta name="theme-color" content="#000000" />
-<title>Trojan Hood — Tradeá cualquier token de Robinhood Chain desde Telegram</title>
-<meta name="description" content="Bot de Telegram auto-custodial estilo Trojan para Robinhood Chain. Pegá el CA, comprá con WETH y seguí tu PnL en tiempo real. Ruteo inteligente Uniswap V2 + V3." />
-
-<!-- Open Graph / social preview -->
+<meta name="theme-color" content="#05060a" />
+<title>Trojan Hood — Trade any Robinhood Chain token from Telegram</title>
+<meta name="description" content="Self-custodial Telegram bot for Robinhood Chain. Paste the CA, buy with WETH and track your PnL in real time. Smart Uniswap V2 + V3 routing." />
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Trojan Hood — Trading de Robinhood Chain en Telegram" />
-<meta property="og:description" content="Comprá y vendé cualquier token de Robinhood Chain desde el chat de Telegram, al estilo Trojan." />
+<meta property="og:title" content="Trojan Hood — Robinhood Chain trading on Telegram" />
+<meta property="og:description" content="Buy and sell any Robinhood Chain token straight from your Telegram chat." />
 <meta property="og:image" content="assets/logo.jpg" />
 
 <link rel="icon" type="image/jpeg" href="assets/logo.jpg" />
-<link rel="preload" as="image" href="assets/logo.jpg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
-<!-- ============ FONDO EN BUCLE ============ -->
-<!-- Capa 0: fondo neón animado por CSS (se ve al instante y si el video no carga). -->
-<div class="bg-neon" aria-hidden="true">
-  <div class="bg-grid"></div>
-  <div class="bg-glow bg-glow--1"></div>
-  <div class="bg-glow bg-glow--2"></div>
+<!-- ============ AMBIENT BACKGROUND ============ -->
+<div class="bg" aria-hidden="true">
+  <div class="bg__grid"></div>
+  <div class="bg__glow bg__glow--1"></div>
+  <div class="bg__glow bg__glow--2"></div>
+  <div class="bg__scan"></div>
+  <div class="bg__noise"></div>
 </div>
 
-<!-- Capa 1: video de fondo. autoplay + muted + loop + playsinline => bucle sin botón de play. -->
-<video
-  class="bg-video"
-  autoplay
-  muted
-  loop
-  playsinline
-  preload="auto"
-  disablepictureinpicture
-  poster="assets/logo.jpg"
-  aria-hidden="true"
-  tabindex="-1">
-  <source src="assets/background.mp4" type="video/mp4" />
-</video>
-
-<!-- Capa 2: velo oscuro para que el texto SIEMPRE sea legible sobre el video -->
-<div class="bg-scrim" aria-hidden="true"></div>
+<!-- decorative floating candles that echo the logo -->
+<div class="candles" aria-hidden="true">
+  <span class="candle c1"></span>
+  <span class="candle c2"></span>
+  <span class="candle c3"></span>
+  <span class="candle c4"></span>
+  <span class="candle c5"></span>
+</div>
 
 <!-- ============ NAV ============ -->
 <header class="nav">
   <a class="nav__brand" href="#top">
-    <img src="assets/logo.jpg" alt="Logo Trojan Hood" class="nav__logo" width="40" height="40" />
+    <span class="nav__logo-wrap"><img src="assets/logo.jpg" alt="Trojan Hood logo" class="nav__logo" width="38" height="38" /></span>
     <span class="nav__name">Trojan&nbsp;Hood</span>
   </a>
   <nav class="nav__links">
-    <a href="#como">Cómo funciona</a>
-    <a href="#features">Funciones</a>
-    <a href="#red">La red</a>
-    <a class="btn btn--sm" href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">Abrir bot</a>
+    <a href="#how">How it works</a>
+    <a href="#token">Token</a>
+    <a href="#features">Features</a>
+    <a href="#network">Network</a>
   </nav>
+  <a class="btn btn--primary btn--sm nav__cta" href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">
+    <svg class="btn__tg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.94 4.53 18.9 19.2c-.23 1.02-.84 1.27-1.7.79l-4.7-3.47-2.27 2.19c-.25.25-.46.46-.94.46l.34-4.78 8.7-7.86c.38-.34-.08-.53-.59-.19L6.1 13.2l-4.64-1.45c-1.01-.32-1.03-1.01.21-1.5l18.15-7c.84-.31 1.58.2 1.12 1.28z"/></svg>
+    Open bot
+  </a>
 </header>
 
 <main id="top">
 
   <!-- ============ HERO ============ -->
   <section class="hero">
-    <div class="hero__inner panel">
-      <img src="assets/logo.jpg" alt="Trojan Hood" class="hero__logo" width="150" height="150" />
-      <p class="eyebrow">Bot de Telegram · Robinhood Chain</p>
-      <h1 class="hero__title">Tradeá cualquier token de<br /><span class="grad">Robinhood Chain</span> desde Telegram</h1>
-      <p class="hero__sub">
-        Auto-custodial, al estilo <strong>Trojan</strong>. Creás tu billetera, pegás el
-        <em>contract address</em> y comprás con WETH en un toque. Seguí tu PnL en tiempo real.
-      </p>
-      <div class="hero__cta">
-        <a class="btn btn--lg" href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">
-          Abrir en Telegram
-        </a>
-        <a class="btn btn--ghost btn--lg" href="#como">Ver cómo funciona</a>
+    <div class="hero__grid">
+      <div class="hero__copy reveal">
+        <p class="eyebrow"><span class="eyebrow__dot"></span> Telegram bot · Robinhood Chain</p>
+        <h1 class="hero__title">Trade any token on <span class="accent">Robinhood&nbsp;Chain</span>, straight from Telegram</h1>
+        <p class="hero__sub">
+          Self-custodial. Create your wallet, paste the contract address and buy with WETH in one tap.
+          Track your PnL in real time.
+        </p>
+        <div class="hero__cta">
+          <a class="btn btn--primary btn--lg" href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">
+            <svg class="btn__tg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.94 4.53 18.9 19.2c-.23 1.02-.84 1.27-1.7.79l-4.7-3.47-2.27 2.19c-.25.25-.46.46-.94.46l.34-4.78 8.7-7.86c.38-.34-.08-.53-.59-.19L6.1 13.2l-4.64-1.45c-1.01-.32-1.03-1.01.21-1.5l18.15-7c.84-.31 1.58.2 1.12 1.28z"/></svg>
+            Open in Telegram
+          </a>
+          <a class="btn btn--ghost btn--lg" href="#how">See how it works</a>
+        </div>
+        <p class="hero__note"><span class="pulse"></span> @Trojan_Hood_bot · Deployed and running 24/7</p>
+
+        <div class="hero__trust">
+          <div class="trust"><b>4663</b><span>Chain ID</span></div>
+          <div class="trust"><b>V2 + V3</b><span>Uniswap routing</span></div>
+          <div class="trust"><b>AES-256</b><span>Encrypted keys</span></div>
+        </div>
       </div>
-      <p class="hero__note">@Trojan_Hood_bot · Desplegado y funcionando 24/7</p>
+
+      <!-- Telegram chat mockup -->
+      <div class="hero__phone reveal">
+        <div class="phone__glow"></div>
+        <div class="chat">
+          <div class="chat__bar">
+            <img src="assets/logo.jpg" alt="" class="chat__avatar" width="40" height="40" />
+            <div class="chat__meta">
+              <span class="chat__name">Trojan Hood <svg class="chat__verify" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+              <span class="chat__status"><i></i> bot · online</span>
+            </div>
+          </div>
+          <div class="chat__body">
+            <div class="bubble bubble--in">
+              <span class="bubble__mono">/start</span>
+            </div>
+            <div class="bubble bubble--bot">
+              <b>👋 Wallet ready</b><br />
+              <span class="dim">0x7a3f…c19e · 0.42 WETH</span>
+            </div>
+            <div class="bubble bubble--in">
+              <span class="bubble__mono">0x0Bd7…AD73</span>
+            </div>
+            <div class="bubble bubble--bot">
+              <div class="tok">
+                <div class="tok__row"><b>HOOD PEPE</b><span class="tag">V3 · 0.3%</span></div>
+                <div class="tok__price">$0.00042 <span class="up">▲ 18.4%</span></div>
+              </div>
+              <div class="chips">
+                <span class="chip chip--buy">Buy 0.01</span>
+                <span class="chip chip--buy">0.05</span>
+                <span class="chip chip--buy">0.1</span>
+                <span class="chip">0.5</span>
+              </div>
+            </div>
+            <div class="bubble bubble--bot bubble--pnl">
+              <span class="dim">Position</span>
+              <div class="pnl-row"><b>HOOD PEPE</b><span class="up">+42.6%</span></div>
+              <div class="spark"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            </div>
+          </div>
+          <div class="chat__input">
+            <span>Paste a contract address…</span>
+            <div class="chat__send"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M21.94 4.53 18.9 19.2c-.23 1.02-.84 1.27-1.7.79l-4.7-3.47-2.27 2.19c-.25.25-.46.46-.94.46l.34-4.78 8.7-7.86c.38-.34-.08-.53-.59-.19L6.1 13.2l-4.64-1.45c-1.01-.32-1.03-1.01.21-1.5l18.15-7c.84-.31 1.58.2 1.12 1.28z"/></svg></div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- ============ CÓMO FUNCIONA ============ -->
-  <section id="como" class="section">
+  <!-- ============ MARQUEE ============ -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee__track">
+      <span>SELF-CUSTODIAL</span><span class="sep">◆</span>
+      <span>UNISWAP V2 + V3</span><span class="sep">◆</span>
+      <span>PASTE CA · BUY IN ONE TAP</span><span class="sep">◆</span>
+      <span>REAL-TIME PnL</span><span class="sep">◆</span>
+      <span>ROBINHOOD CHAIN</span><span class="sep">◆</span>
+      <span>SELF-CUSTODIAL</span><span class="sep">◆</span>
+      <span>UNISWAP V2 + V3</span><span class="sep">◆</span>
+      <span>PASTE CA · BUY IN ONE TAP</span><span class="sep">◆</span>
+      <span>REAL-TIME PnL</span><span class="sep">◆</span>
+      <span>ROBINHOOD CHAIN</span><span class="sep">◆</span>
+    </div>
+  </div>
+
+  <!-- ============ OFFICIAL TOKEN / CA COPY ============ -->
+  <section id="token" class="section">
     <div class="wrap">
-      <h2 class="section__title">Cómo funciona</h2>
-      <p class="section__lead">De cero a tu primera compra en cuatro pasos.</p>
+      <div class="token glass reveal">
+        <div class="token__aura"></div>
+        <p class="token__badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+          Official token
+        </p>
+        <p class="token__msg">
+          An <strong>exclusive distribution</strong> will be unlocked for the community
+          that buys the official <strong>Trojan Hood</strong> token.
+        </p>
+        <span class="token__label">Official token CA</span>
+        <div class="ca" data-ca="0x0000000000000000000000000000000000000000">
+          <code class="ca__value" id="ca-value">0x0000000000000000000000000000000000000000</code>
+          <button class="btn btn--primary ca__btn" id="ca-copy" type="button" aria-label="Copy contract address">
+            <svg class="ca__ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="ca__btn-txt">Copy</span>
+          </button>
+        </div>
+        <p class="token__hint">Example address — tap Copy to try it. Replace with the real CA later.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HOW IT WORKS ============ -->
+  <section id="how" class="section">
+    <div class="wrap">
+      <p class="section__kicker reveal">Get started</p>
+      <h2 class="section__title reveal">How it works</h2>
+      <p class="section__lead reveal">From zero to your first buy in four steps.</p>
       <ol class="steps">
-        <li class="step panel">
-          <span class="step__num">1</span>
-          <h3>Abrí el bot</h3>
-          <p>Mandá <code>/start</code> a @Trojan_Hood_bot y creá una billetera nueva o importá la tuya con la clave privada.</p>
+        <li class="step glass reveal">
+          <span class="step__num">01</span>
+          <div class="step__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21.94 4.53 18.9 19.2c-.23 1.02-.84 1.27-1.7.79l-4.7-3.47-2.27 2.19c-.25.25-.46.46-.94.46l.34-4.78 8.7-7.86c.38-.34-.08-.53-.59-.19L6.1 13.2l-4.64-1.45c-1.01-.32-1.03-1.01.21-1.5l18.15-7c.84-.31 1.58.2 1.12 1.28z"/></svg></div>
+          <h3>Open the bot</h3>
+          <p>Send <code>/start</code> to @Trojan_Hood_bot and create a new wallet or import yours with its private key.</p>
         </li>
-        <li class="step panel">
-          <span class="step__num">2</span>
-          <h3>Fondeá tu wallet</h3>
-          <p>Enviá <strong>WETH</strong> para comprar y un poco de <strong>ETH</strong> para el gas a tu dirección.</p>
+        <li class="step glass reveal">
+          <span class="step__num">02</span>
+          <div class="step__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/><path d="M6 15h4"/></svg></div>
+          <h3>Fund your wallet</h3>
+          <p>Send WETH to buy and a bit of ETH for gas to your address.</p>
         </li>
-        <li class="step panel">
-          <span class="step__num">3</span>
-          <h3>Pegá el CA</h3>
-          <p>Pegá el contract address del token y tocá un botón de compra: <code>0.01</code> / <code>0.05</code> / <code>0.1</code> / <code>0.5</code> WETH o monto custom.</p>
+        <li class="step glass reveal">
+          <span class="step__num">03</span>
+          <div class="step__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="M9 12h6"/><path d="M9 16h6"/></svg></div>
+          <h3>Paste the CA</h3>
+          <p>Paste the token's contract address and tap a buy button: <code>0.01</code> / <code>0.05</code> / <code>0.1</code> / <code>0.5</code> WETH or a custom amount.</p>
         </li>
-        <li class="step panel">
-          <span class="step__num">4</span>
-          <h3>Seguí tu PnL</h3>
-          <p>Ves tu posición con el % de ganancia/pérdida en el menú. Vendé 25 / 50 / 100% o retirá cuando quieras.</p>
+        <li class="step glass reveal">
+          <span class="step__num">04</span>
+          <div class="step__ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+          <h3>Track your PnL</h3>
+          <p>See your position with its profit/loss % in the menu. Sell 25 / 50 / 100% or withdraw whenever you want.</p>
         </li>
       </ol>
     </div>
   </section>
 
   <!-- ============ FEATURES ============ -->
-  <section id="features" class="section section--alt">
+  <section id="features" class="section">
     <div class="wrap">
-      <h2 class="section__title">Todo lo que necesitás para operar</h2>
+      <p class="section__kicker reveal">Features</p>
+      <h2 class="section__title reveal">Everything you need to trade</h2>
       <div class="grid">
-        <article class="card panel">
-          <div class="card__icon">🔐</div>
-          <h3>Billetera auto-custodial</h3>
-          <p>Vos controlás las claves. Se guardan cifradas con AES-256-GCM; la frase semilla se muestra una sola vez y no se almacena.</p>
+        <article class="card glass reveal">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <h3>Self-custodial wallet</h3>
+          <p>You control the keys. They're stored encrypted with AES-256-GCM; the seed phrase is shown once and never saved.</p>
         </article>
-        <article class="card panel">
-          <div class="card__icon">🔀</div>
-          <h3>Ruteo inteligente V2 + V3</h3>
-          <p>Cotiza en paralelo por Uniswap V2 y V3 (fee tiers 0.01–1%) y ejecuta por la mejor ruta. Compra tokens que los bots solo-V2 no pueden.</p>
+        <article class="card glass reveal">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"/><path d="m18 2 4 4-4 4"/><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"/><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.8l-.5-.8"/><path d="m18 14 4 4-4 4"/></svg></div>
+          <h3>Smart V2 + V3 routing</h3>
+          <p>Quotes Uniswap V2 and V3 in parallel (fee tiers 0.01–1%) and executes via the best route. Buys tokens that V2-only bots can't.</p>
         </article>
-        <article class="card panel">
-          <div class="card__icon">📋</div>
-          <h3>Pegá el CA y comprá</h3>
-          <p>Panel instantáneo con nombre, símbolo, precio de referencia, ruta y balances. Botones de monto preestablecido o custom.</p>
+        <article class="card glass reveal">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="2" width="8" height="4" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/></svg></div>
+          <h3>Paste the CA and buy</h3>
+          <p>Instant panel with name, symbol, reference price, route and balances. Preset or custom amount buttons.</p>
         </article>
-        <article class="card panel">
-          <div class="card__icon">📈</div>
-          <h3>Posiciones con PnL</h3>
-          <p>Lista de tus tokens con el % de ganancia/pérdida. <span class="up">🟢 Verde</span> gana, <span class="down">🔴 Rojo</span> pierde. Sin ruido, estilo Trojan.</p>
+        <article class="card glass reveal">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div>
+          <h3>Positions with PnL</h3>
+          <p>A list of your tokens with their profit/loss %. <span class="up"><i class="dot"></i>Green</span> wins, <span class="down"><i class="dot"></i>Red</span> loses. Simple and direct.</p>
         </article>
-        <article class="card panel">
-          <div class="card__icon">🧭</div>
-          <h3>Pool → Token automático</h3>
-          <p>Si pegás la dirección de un pool (lo que copiás de DEX Screener), el bot la resuelve sola al token subyacente.</p>
+        <article class="card glass reveal">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></svg></div>
+          <h3>Pool → Token automatically</h3>
+          <p>If you paste a pool address (what you copy from DEX Screener), the bot resolves it to the underlying token automatically.</p>
         </article>
-        <article class="card panel">
-          <div class="card__icon">💸</div>
-          <h3>Retiros y ajustes</h3>
-          <p>Retirá ETH o WETH a cualquier dirección externa. Ajustá el slippage y los montos de los botones a tu gusto.</p>
+        <article class="card glass reveal">
+          <div class="card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01"/><path d="M18 12h.01"/></svg></div>
+          <h3>Withdrawals and settings</h3>
+          <p>Withdraw ETH or WETH to any external address. Adjust slippage and the button amounts to your liking.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- ============ LA RED / CONFIANZA ============ -->
-  <section id="red" class="section">
+  <!-- ============ NETWORK / TRUST ============ -->
+  <section id="network" class="section">
     <div class="wrap">
-      <h2 class="section__title">Construido sobre Robinhood Chain</h2>
-      <p class="section__lead">
-        La Layer 2 pública de Robinhood (estilo Arbitrum, sobre Ethereum). El gas se paga en ETH
-        y todas las pools cotizan contra WETH — por eso la moneda base del bot es <strong>WETH</strong>,
-        el equivalente exacto a "gastar SOL" en un Trojan de Solana.
+      <p class="section__kicker reveal">Under the hood</p>
+      <h2 class="section__title reveal">Built on Robinhood Chain</h2>
+      <p class="section__lead reveal">
+        Robinhood's public Layer 2 (Arbitrum-style, on Ethereum). Gas is paid in ETH
+        and every pool quotes against WETH — that's why the bot's base currency is WETH,
+        the network's native currency in its ERC-20 form.
       </p>
-      <div class="stats">
-        <div class="stat panel"><span class="stat__num">4663</span><span class="stat__lbl">Chain ID (“HOOD”)</span></div>
-        <div class="stat panel"><span class="stat__num">V2 + V3</span><span class="stat__lbl">Rutas Uniswap</span></div>
-        <div class="stat panel"><span class="stat__num">AES-256</span><span class="stat__lbl">Claves cifradas (GCM)</span></div>
-        <div class="stat panel"><span class="stat__num">24/7</span><span class="stat__lbl">Online</span></div>
+      <div class="stats reveal">
+        <div class="stat glass"><span class="stat__num">4663</span><span class="stat__lbl">Chain ID (“HOOD”)</span></div>
+        <div class="stat glass"><span class="stat__num">V2 + V3</span><span class="stat__lbl">Uniswap routes</span></div>
+        <div class="stat glass"><span class="stat__num">AES-256</span><span class="stat__lbl">Encrypted keys (GCM)</span></div>
+        <div class="stat glass"><span class="stat__num">24/7</span><span class="stat__lbl">Online</span></div>
       </div>
-      <div class="tech panel">
-        <h3>Stack técnico</h3>
-        <p>Node.js 20+ · grammY · ethers v6 · long polling · almacenamiento JSON cifrado por usuario · desplegado en Fly.io.</p>
+      <div class="tech glass reveal">
+        <div class="tech__head">
+          <span class="dots"><i></i><i></i><i></i></span>
+          <h3>Tech stack</h3>
+        </div>
+        <p class="tech__stack">Node.js 20+ · grammY · ethers v6 · long polling · per-user encrypted JSON storage.</p>
         <div class="tech__addrs">
-          <div><span>WETH</span><code>0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73</code></div>
-          <div><span>Uniswap V2 Router02</span><code>0x89e5DB8B5aA49aA85AC63f691524311AEB649eba</code></div>
-          <div><span>Uniswap V3 SwapRouter02</span><code>0xCaf681a66D020601342297493863E78C959E5cb2</code></div>
+          <div class="addr"><span>WETH</span><code>0x0Bd7D308f8E1639FAb988df18A8011f41EAcAD73</code></div>
+          <div class="addr"><span>Uniswap V2 Router02</span><code>0x89e5DB8B5aA49aA85AC63f691524311AEB649eba</code></div>
+          <div class="addr"><span>Uniswap V3 SwapRouter02</span><code>0xCaf681a66D020601342297493863E78C959E5cb2</code></div>
         </div>
         <div class="tech__links">
-          <a href="https://robinhoodchain.blockscout.com" target="_blank" rel="noopener">Explorador ↗</a>
-          <a href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">Bot en Telegram ↗</a>
+          <a href="https://robinhoodchain.blockscout.com" target="_blank" rel="noopener">Explorer <span aria-hidden="true">↗</span></a>
+          <a href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">Bot on Telegram <span aria-hidden="true">↗</span></a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ CTA FINAL ============ -->
-  <section class="cta">
-    <div class="cta__inner panel">
-      <img src="assets/logo.jpg" alt="" class="cta__logo" width="88" height="88" aria-hidden="true" />
-      <h2>Empezá a operar en un toque</h2>
-      <p>Sin exchange, sin custodia de terceros. Tu billetera, tus claves, tu control.</p>
-      <a class="btn btn--lg" href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">Abrir Trojan Hood</a>
+  <!-- ============ FINAL CTA ============ -->
+  <section class="section">
+    <div class="wrap">
+      <div class="cta glass reveal">
+        <div class="cta__aura"></div>
+        <img src="assets/logo.jpg" alt="" class="cta__logo" width="84" height="84" aria-hidden="true" />
+        <h2>Start trading in one tap</h2>
+        <p>No exchange, no third-party custody. Your wallet, your keys, your control.</p>
+        <a class="btn btn--primary btn--lg" href="https://t.me/Trojan_Hood_bot" target="_blank" rel="noopener">
+          <svg class="btn__tg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.94 4.53 18.9 19.2c-.23 1.02-.84 1.27-1.7.79l-4.7-3.47-2.27 2.19c-.25.25-.46.46-.94.46l.34-4.78 8.7-7.86c.38-.34-.08-.53-.59-.19L6.1 13.2l-4.64-1.45c-1.01-.32-1.03-1.01.21-1.5l18.15-7c.84-.31 1.58.2 1.12 1.28z"/></svg>
+          Open Trojan Hood
+        </a>
+      </div>
     </div>
   </section>
 
@@ -197,35 +306,73 @@
 <footer class="footer">
   <div class="wrap footer__inner">
     <div class="footer__brand">
-      <img src="assets/logo.jpg" alt="" width="32" height="32" aria-hidden="true" />
+      <img src="assets/logo.jpg" alt="" width="30" height="30" aria-hidden="true" />
       <span>Trojan&nbsp;Hood</span>
     </div>
     <p class="footer__disclaimer">
-      El trading de cripto conlleva riesgo y esto no es asesoría financiera. Trojan Hood es
-      auto-custodial: sos responsable de tus propias claves. Usá montos chicos primero.
+      Crypto trading carries risk and this is not financial advice. Trojan Hood is
+      self-custodial: you are responsible for your own keys. Use small amounts first.
     </p>
-    <p class="footer__copy">© 2026 Trojan Hood · No afiliado a Robinhood Markets, Inc.</p>
+    <p class="footer__copy">© 2026 Trojan Hood · Not affiliated with Robinhood Markets, Inc.</p>
   </div>
 </footer>
 
 <script>
-  // Refuerzo: algunos navegadores móviles bloquean autoplay hasta que el elemento
-  // esté listo. Reintentamos reproducir en silencio, sin mostrar controles.
+  // Scroll-reveal: fade + slide up with elegant easing.
   (function () {
-    var v = document.querySelector('.bg-video');
-    if (!v) return;
-    v.muted = true; // requerido para autoplay
-    var tryPlay = function () {
-      var p = v.play();
-      if (p && p.catch) p.catch(function () {/* se reintenta al primer toque */});
-    };
-    tryPlay();
-    document.addEventListener('visibilitychange', function () {
-      if (!document.hidden) tryPlay();
-    });
-    ['touchstart', 'click', 'scroll'].forEach(function (evt) {
-      window.addEventListener(evt, tryPlay, { once: true, passive: true });
-    });
+    var els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window) || !els.length) {
+      els.forEach(function (e) { e.classList.add('in'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+
+  // Shrink the nav on scroll.
+  (function () {
+    var nav = document.querySelector('.nav');
+    if (!nav) return;
+    var onScroll = function () { nav.classList.toggle('is-scrolled', window.scrollY > 12); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+
+  // One-tap copy for the contract address.
+  (function () {
+    var box = document.querySelector('.ca');
+    var btn = document.getElementById('ca-copy');
+    if (!box || !btn) return;
+    var label = btn.querySelector('.ca__btn-txt');
+    var reset;
+    function flash(text, ok) {
+      if (label) label.textContent = text;
+      btn.classList.toggle('is-ok', !!ok);
+      clearTimeout(reset);
+      reset = setTimeout(function () { if (label) label.textContent = 'Copy'; btn.classList.remove('is-ok'); }, 1600);
+    }
+    function copy() {
+      var value = box.getAttribute('data-ca') || (document.getElementById('ca-value') || {}).textContent || '';
+      value = value.trim();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(value).then(function () { flash('Copied!', true); }).catch(function () { legacy(value); });
+      } else { legacy(value); }
+    }
+    function legacy(value) {
+      try {
+        var t = document.createElement('textarea');
+        t.value = value; t.setAttribute('readonly', '');
+        t.style.position = 'absolute'; t.style.left = '-9999px';
+        document.body.appendChild(t); t.select();
+        document.execCommand('copy'); document.body.removeChild(t);
+        flash('Copied!', true);
+      } catch (e) { flash('Copy failed', false); }
+    }
+    btn.addEventListener('click', copy);
   })();
 </script>
 </body>

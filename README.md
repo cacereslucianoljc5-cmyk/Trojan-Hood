@@ -12,31 +12,26 @@ index.html          Página completa (una sola vista, secciones ancladas)
 styles.css          Estilos neón (verde/cian sobre negro), responsive PC + móvil
 assets/
   logo.jpg          Logo del proyecto (también usado como favicon)
-  background.mp4    Video de fondo en bucle
 ```
 
-## Fondo en bucle
+## Secciones
 
-El fondo es un `<video autoplay muted loop playsinline>`:
+Una sola página con anclas: **nav** (sticky con blur), **hero** con mockup de chat de
+Telegram, cinta (marquee), **token** con CA copiable de un toque, **How it works** (4
+pasos), **Features** (6 cards), **Network** (stats + tech stack sobre Robinhood Chain),
+**CTA final** y **footer**.
 
-- **En bucle** infinito (`loop`).
-- **Sin botón de play ni controles** — arranca solo, en silencio (`autoplay muted`,
-  `playsinline` para iOS, controles nativos ocultos por CSS).
-- **Cubre PC y móvil** con `object-fit: cover` (no se deforma).
-- **Carga rápida**: video liviano + un fondo neón animado por CSS que se ve al instante y
-  sirve de respaldo si el video todavía no cargó o el navegador bloquea el autoplay.
-- Un velo oscuro (`.bg-scrim`) y los paneles con `backdrop-filter` garantizan que el
+## Fondo ambiental (100% CSS, sin video)
+
+El fondo se genera por completo con CSS — sin archivos de video ni dependencias:
+
+- **Grid neón** animado con desplazamiento suave y máscara radial.
+- **Glows** verde/cian difuminados que derivan lentamente detrás del hero.
+- **Velas de trading flotantes** que evocan el logo.
+- Ligero *scanline* + grano para textura, en `mix-blend-mode`.
+- Todos los paneles usan `backdrop-filter` y bordes con gradiente para que el
   **texto nunca se mezcle con el fondo**.
-
-### Reemplazar el video
-
-Dejá tu archivo en `assets/background.mp4` (mismo nombre) y listo. Para máxima compatibilidad
-podés agregar también un `assets/background.webm` y sumar la fuente en `index.html`:
-
-```html
-<source src="assets/background.webm" type="video/webm" />
-<source src="assets/background.mp4" type="video/mp4" />
-```
+- Respeta `prefers-reduced-motion` (desactiva animaciones).
 
 ## Ver / publicar
 
