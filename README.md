@@ -9,34 +9,27 @@ Bot en vivo: [@Trojan_Hood_bot](https://t.me/Trojan_Hood_bot)
 
 ```
 index.html          Página completa (una sola vista, secciones ancladas)
-styles.css          Estilos neón (verde/cian sobre negro), responsive PC + móvil
+styles.css          Paleta suave (marfil/salvia/durazno), tipografía Bricolage Grotesque
+                     + Public Sans + JetBrains Mono, responsive PC + móvil
 assets/
   logo.jpg          Logo del proyecto (también usado como favicon)
-  background.mp4    Video de fondo en bucle
+  main.js           Fondo interactivo (canvas), reveal on scroll, tilt, botones magnéticos,
+                     copiado de la CA
 ```
 
-## Fondo en bucle
+## Fondo interactivo
 
-El fondo es un `<video autoplay muted loop playsinline>`:
+El fondo (`assets/main.js` + `#field` canvas) es un campo de partículas suaves:
 
-- **En bucle** infinito (`loop`).
-- **Sin botón de play ni controles** — arranca solo, en silencio (`autoplay muted`,
-  `playsinline` para iOS, controles nativos ocultos por CSS).
-- **Cubre PC y móvil** con `object-fit: cover` (no se deforma).
-- **Carga rápida**: video liviano + un fondo neón animado por CSS que se ve al instante y
-  sirve de respaldo si el video todavía no cargó o el navegador bloquea el autoplay.
-- Un velo oscuro (`.bg-scrim`) y los paneles con `backdrop-filter` garantizan que el
-  **texto nunca se mezcle con el fondo**.
-
-### Reemplazar el video
-
-Dejá tu archivo en `assets/background.mp4` (mismo nombre) y listo. Para máxima compatibilidad
-podés agregar también un `assets/background.webm` y sumar la fuente en `index.html`:
-
-```html
-<source src="assets/background.webm" type="video/webm" />
-<source src="assets/background.mp4" type="video/mp4" />
-```
+- Las partículas derivan lentamente y se conectan con líneas finas cuando están cerca.
+- **Reaccionan al mouse**: se apartan suavemente del cursor al pasar cerca.
+- **Reaccionan al click**: cada click (y el botón de copiar CA) dispara una pequeña explosión
+  de partículas en el punto exacto.
+- Debajo del canvas hay tres manchas de gradiente (menta/durazno/lila) que dan profundidad.
+- Respeta `prefers-reduced-motion`: si el usuario lo pide, se dibuja un frame estático y no
+  hay animación.
+- Las tarjetas (`.tilt`) inclinan levemente siguiendo el cursor y los botones principales
+  (`.magnetic`) se desplazan hacia él — micro-interacciones, no solo scroll-reveal.
 
 ## Ver / publicar
 
